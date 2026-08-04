@@ -1,14 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LeadForm } from "@/components/LeadForm";
-import coverAsset from "@/assets/cover.jpg.asset.json";
-import mockupAsset from "@/assets/mockup.jpg.asset.json";
-import interiorAsset from "@/assets/interior.png.asset.json";
-import oneshotAsset from "@/assets/oneshot.jpg.asset.json";
-import honorableAsset from "@/assets/honorable.png.asset.json";
-import videoAsset from "@/assets/video.mp4.asset.json";
+
+const media = {
+  cover: "/media/cover.jpg",
+  mockup: "/media/mockup.jpg",
+  interior: "/media/interior.png",
+  oneshot: "/media/oneshot.jpg",
+  honorable: "/media/honorable.png",
+  video: "/media/video.mp4",
+} as const;
 
 const siteUrl = import.meta.env.VITE_SITE_URL?.replace(/\/$/, "");
-const socialImageUrl = siteUrl ? `${siteUrl}${coverAsset.url}` : coverAsset.url;
+const socialImageUrl = siteUrl ? `${siteUrl}${media.cover}` : media.cover;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -121,7 +124,7 @@ function Landing() {
           <div className="md:col-span-6 order-1 md:order-2 relative">
             <div className="absolute -inset-8 bg-gold/5 blur-3xl" />
             <img
-              src={coverAsset.url}
+              src={media.cover}
               alt="Infatuation 2027 — okładka kalendarza"
               className="relative w-full max-w-md mx-auto shadow-editorial"
             />
@@ -156,8 +159,8 @@ function Landing() {
           </div>
           <div className="relative aspect-video overflow-hidden shadow-editorial border border-border/60">
             <video
-              src={videoAsset.url}
-              poster={coverAsset.url}
+              src={media.video}
+              poster={media.cover}
               autoPlay
               muted
               loop
@@ -175,7 +178,7 @@ function Landing() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
             <img
-              src={interiorAsset.url}
+              src={media.interior}
               alt="Kalendarz w aranżacji wnętrza"
               className="w-full shadow-editorial"
             />
@@ -225,7 +228,7 @@ function Landing() {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-card border border-border p-8 flex flex-col items-center text-center hover:border-gold/60 transition">
               <img
-                src={oneshotAsset.url}
+                src={media.oneshot}
                 alt="Exposure One Awards trophy"
                 className="h-96 object-contain"
               />
@@ -239,7 +242,7 @@ function Landing() {
             </div>
             <div className="bg-card border border-border p-8 flex flex-col hover:border-gold/60 transition">
               <img
-                src={honorableAsset.url}
+                src={media.honorable}
                 alt="Honorable Mention badge"
                 className="w-full object-contain bg-secondary/40 p-6"
               />
@@ -266,7 +269,7 @@ function Landing() {
       <section id="gallery" className="py-24 md:py-32 bg-card/30 border-y border-border/60">
         <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
           <img
-            src={mockupAsset.url}
+            src={media.mockup}
             alt="Kalendarz Infatuation 2027"
             className="w-full shadow-editorial"
           />
@@ -308,7 +311,7 @@ function Landing() {
             <div className="relative grid md:grid-cols-2 gap-12 items-start">
               <div>
                 <img
-                  src={coverAsset.url}
+                  src={media.cover}
                   alt="Kalendarz 2027"
                   className="w-full max-w-xs mx-auto shadow-editorial"
                 />

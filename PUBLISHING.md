@@ -21,3 +21,9 @@
 4. Potwierdź finalne ceny, koszt wysyłki, nakład oraz treść informacji o przetwarzaniu danych.
 
 Nie zapisuj prawdziwych wartości z `.env` w repozytorium.
+
+## Hosting statyczny / FTP
+
+Build prerenderuje stronę główną do statycznego HTML. Do katalogu WWW należy wysłać zawartość
+`dist/client` (nie sam katalog nadrzędny). Build powinien zawierać co najmniej `index.html`,
+zasoby w `assets/`, obrazy oraz wideo.
