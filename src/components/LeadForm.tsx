@@ -16,6 +16,10 @@ const schema = z.object({
     .trim()
     .regex(/^\d{2}-\d{3}$/, "Podaj kod w formacie 00-000"),
   city: z.string().trim().min(2, "Podaj miasto").max(100),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[+0-9][0-9\s()-]{6,24}$/, "Podaj prawidłowy numer telefonu"),
   format: z.enum(["A3", "A2"], { message: "Wybierz format" }),
   consent_processing: z.literal(true, {
     errorMap: () => ({ message: "Zgoda na przetwarzanie danych jest wymagana" }),
@@ -29,6 +33,7 @@ export function LeadForm() {
   const [street, setStreet] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
   const [format, setFormat] = useState<"A3" | "A2">("A3");
   const [processing, setProcessing] = useState(false);
   const [marketing, setMarketing] = useState(false);
@@ -46,6 +51,7 @@ export function LeadForm() {
       street,
       postalCode,
       city,
+      phone,
       format,
       consent_processing: processing,
       consent_marketing: marketing,
@@ -69,6 +75,7 @@ export function LeadForm() {
           street: parsed.data.street,
           postalCode: parsed.data.postalCode,
           city: parsed.data.city,
+          phone: parsed.data.phone,
           format: parsed.data.format,
           consentProcessing: parsed.data.consent_processing,
           consentMarketing: parsed.data.consent_marketing,
@@ -224,22 +231,45 @@ export function LeadForm() {
             />
           </div>
         </div>
-        <div>
-          <label
-            htmlFor="lead-country"
-            className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2"
-          >
-            Kraj
-          </label>
-          <input
-            id="lead-country"
-            type="text"
-            name="country"
-            autoComplete="country-name"
-            readOnly
-            value="Polska"
-            className="w-full bg-muted/40 border border-border px-4 py-3 text-sm text-muted-foreground cursor-not-allowed"
-          />
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label
+              htmlFor="lead-country"
+              className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2"
+            >
+              Kraj
+            </label>
+            <input
+              id="lead-country"
+              type="text"
+              name="country"
+              autoComplete="country-name"
+              readOnly
+              value="Polska"
+              className="w-full bg-muted/40 border border-border px-4 py-3 text-sm text-muted-foreground cursor-not-allowed"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="lead-phone"
+              className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2"
+            >
+              Numer telefonu
+            </label>
+            <input
+              id="lead-phone"
+              type="tel"
+              name="phone"
+              inputMode="tel"
+              autoComplete="tel"
+              required
+              maxLength={25}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-full bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:border-gold transition"
+              placeholder="+48 600 000 000"
+            />
+          </div>
         </div>
       </fieldset>
 
