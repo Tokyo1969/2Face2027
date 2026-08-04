@@ -10,6 +10,12 @@ const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "https://api.noirsilk
 const schema = z.object({
   name: z.string().trim().min(2, "Podaj imię").max(100),
   email: z.string().trim().email("Nieprawidłowy adres e-mail").max(255),
+  street: z.string().trim().min(3, "Podaj ulicę i numer").max(200),
+  postalCode: z
+    .string()
+    .trim()
+    .regex(/^\d{2}-\d{3}$/, "Podaj kod w formacie 00-000"),
+  city: z.string().trim().min(2, "Podaj miasto").max(100),
   format: z.enum(["A3", "A2"], { message: "Wybierz format" }),
   consent_processing: z.literal(true, {
     errorMap: () => ({ message: "Zgoda na przetwarzanie danych jest wymagana" }),
@@ -20,6 +26,9 @@ const schema = z.object({
 export function LeadForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [street, setStreet] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
   const [format, setFormat] = useState<"A3" | "A2">("A3");
   const [processing, setProcessing] = useState(false);
   const [marketing, setMarketing] = useState(false);
@@ -34,6 +43,9 @@ export function LeadForm() {
     const parsed = schema.safeParse({
       name,
       email,
+      street,
+      postalCode,
+      city,
       format,
       consent_processing: processing,
       consent_marketing: marketing,
@@ -54,6 +66,9 @@ export function LeadForm() {
           requestId,
           name: parsed.data.name,
           email: parsed.data.email,
+          street: parsed.data.street,
+          postalCode: parsed.data.postalCode,
+          city: parsed.data.city,
           format: parsed.data.format,
           consentProcessing: parsed.data.consent_processing,
           consentMarketing: parsed.data.consent_marketing,
@@ -140,6 +155,93 @@ export function LeadForm() {
           placeholder="ty@przyklad.pl"
         />
       </div>
+
+      <fieldset className="space-y-4 border-t border-border pt-5">
+        <legend className="pr-3 text-[10px] tracking-luxury uppercase text-gold">
+          Dane do wysyłki
+        </legend>
+        <div>
+          <label
+            htmlFor="lead-street"
+            className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2"
+          >
+            Ulica i numer
+          </label>
+          <input
+            id="lead-street"
+            type="text"
+            name="street"
+            autoComplete="street-address"
+            required
+            maxLength={200}
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+            className="w-full bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:border-gold transition"
+            placeholder="Ulica 12/3"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label
+              htmlFor="lead-postal-code"
+              className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2"
+            >
+              Kod pocztowy
+            </label>
+            <input
+              id="lead-postal-code"
+              type="text"
+              name="postalCode"
+              inputMode="numeric"
+              autoComplete="postal-code"
+              required
+              maxLength={6}
+              pattern="[0-9]{2}-[0-9]{3}"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              className="w-full bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:border-gold transition"
+              placeholder="00-000"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="lead-city"
+              className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2"
+            >
+              Miasto
+            </label>
+            <input
+              id="lead-city"
+              type="text"
+              name="city"
+              autoComplete="address-level2"
+              required
+              maxLength={100}
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="w-full bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:border-gold transition"
+              placeholder="Warszawa"
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            htmlFor="lead-country"
+            className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2"
+          >
+            Kraj
+          </label>
+          <input
+            id="lead-country"
+            type="text"
+            name="country"
+            autoComplete="country-name"
+            readOnly
+            value="Polska"
+            className="w-full bg-muted/40 border border-border px-4 py-3 text-sm text-muted-foreground cursor-not-allowed"
+          />
+        </div>
+      </fieldset>
 
       <div>
         <span className="block text-[10px] tracking-luxury uppercase text-muted-foreground mb-2">
