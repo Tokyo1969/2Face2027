@@ -7,7 +7,7 @@ const media = {
   interior: "/media/interior.png",
   oneshot: "/media/oneshot.jpg",
   honorable: "/media/honorable.png",
-  video: "/media/video.mp4",
+  preview: "/media/video.jpg",
 } as const;
 
 const siteUrl = import.meta.env.VITE_SITE_URL?.replace(/\/$/, "");
@@ -158,14 +158,9 @@ function Landing() {
             </h2>
           </div>
           <div className="relative aspect-video overflow-hidden shadow-editorial border border-border/60">
-            <video
-              src={media.video}
-              poster={media.cover}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
+            <img
+              src={media.preview}
+              alt="Kalendarz 2FACE 2027 — obiekt kolekcjonerski"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
