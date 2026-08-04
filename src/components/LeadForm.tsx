@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "https://api.noirsilk.eu").replace(
+  /\/$/,
+  "",
+);
 
 const schema = z.object({
-  name: z.string().trim().min(1, "Podaj imię").max(100),
+  name: z.string().trim().min(2, "Podaj imię").max(100),
   email: z.string().trim().email("Nieprawidłowy adres e-mail").max(255),
   format: z.enum(["A3", "A2"], { message: "Wybierz format" }),
   consent_processing: z.literal(true, {
@@ -19,9 +23,11 @@ export function LeadForm() {
   const [format, setFormat] = useState<"A3" | "A2">("A3");
   const [processing, setProcessing] = useState(false);
   const [marketing, setMarketing] = useState(false);
+  const [website, setWebsite] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [requestId] = useState(() => crypto.randomUUID());
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,16 +47,21 @@ export function LeadForm() {
     setSubmitError("");
     setLoading(true);
     try {
-      const { error } = await supabase.from("leads").insert({
-        name: parsed.data.name,
-        email: parsed.data.email,
-        format: parsed.data.format,
-        consent_processing: parsed.data.consent_processing,
-        consent_marketing: parsed.data.consent_marketing,
-        source: "landing_2027",
+      const response = await fetch(`${API_BASE_URL}/api/orders/2face-2027`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requestId,
+          name: parsed.data.name,
+          email: parsed.data.email,
+          format: parsed.data.format,
+          consentProcessing: parsed.data.consent_processing,
+          consentMarketing: parsed.data.consent_marketing,
+          website,
+        }),
       });
 
-      if (error) throw error;
+      if (!response.ok) throw new Error(`Order request failed: ${response.status}`);
 
       setSubmitted(true);
       toast.success("Dziękujemy! Skontaktujemy się w sprawie zamówienia.");
@@ -77,6 +88,18 @@ export function LeadForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-5">
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor="lead-website">Strona internetowa</label>
+        <input
+          id="lead-website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
       <div>
         <label
           htmlFor="lead-name"
