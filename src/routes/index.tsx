@@ -363,8 +363,9 @@ function Landing() {
                 href="https://nexxsite.pl"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-gold hover:underline"
               >
-                <Nexxsite className="pl"></Nexxsite>
+                Nexxsite.pl
               </a>
             </div>
           </div>
