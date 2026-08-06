@@ -295,10 +295,10 @@ function Landing() {
               Limitowana edycja
             </div>
             <h2 className="font-display text-4xl md:text-5xl font-light">
-              Zarezerwuj swój egzemplarz
+              Kup swój egzemplarz już dziś
             </h2>
             <p className="mt-4 text-muted-foreground text-sm max-w-xl mx-auto">
-              Wybierz format, zostaw dane — skontaktujemy się z Tobą w sprawie zamówienia i wysyłki.
+              Wybierz najlepszy format dla Siebie - już od 17.08.2026r rozpoczynamy wysyłkę.
             </p>
           </div>
           <div className="bg-card border border-border p-8 md:p-14 relative overflow-hidden">
@@ -358,7 +358,14 @@ function Landing() {
           <div>
             <div className="font-display text-2xl italic text-gold">NoirSilk</div>
             <div className="text-xs text-muted-foreground mt-1">
-              © 2026 Maciej Max Dominik. All rights reserved.
+              © 2026 Maciej Max Dominik. All rights reserved.  Powered by{" "}
+              <a
+                href="https://nexxsite.pl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Nexxsite className="pl"></Nexxsite>
+              </a>
             </div>
           </div>
           <div className="flex gap-8 text-[11px] tracking-luxury uppercase text-muted-foreground">
