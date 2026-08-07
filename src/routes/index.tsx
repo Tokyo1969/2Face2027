@@ -109,7 +109,7 @@ function Landing() {
             <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="#buy"
-                className="inline-flex items-center gap-3 bg-gold text-accent-foreground px-8 py-4 text-xs tracking-luxury uppercase hover:opacity-90 transition"
+                className="inline-flex items-center gap-3 bg-gold text-accent-foreground px-8 py-4 text-xs tracking-luxury uppercase hover:opacity-90 transition font-bold"
               >
                 Zamów kalendarz →
               </a>
@@ -157,11 +157,11 @@ function Landing() {
               Obiekt do kolekcjonowania
             </h2>
           </div>
-          <div className="relative aspect-video overflow-hidden shadow-editorial border border-border/60">
+          <div className="relative aspect-video overflow-hidden shadow-editorial border border-border/60 bg-card/40 p-2 md:p-3">
             <img
               src={media.preview}
               alt="Kalendarz 2FACE 2027 — obiekt kolekcjonerski"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
           </div>
@@ -195,7 +195,7 @@ function Landing() {
               kolekcjonerski, wydany w numerowanym nakładzie.
             </p>
             <div className="mt-10 grid grid-cols-3 gap-6 py-8 border-y border-border">
-              <Stat value="100k" label="Głosów OneShot" />
+              <Stat value="100 tyś" label="Głosów OneShot" />
               <Stat value="12" label="Miesięcy sztuki" />
               <Stat value="1/500" label="Numerowany nakład" />
             </div>
@@ -298,51 +298,31 @@ function Landing() {
               Kup swój egzemplarz już dziś
             </h2>
             <p className="mt-4 text-muted-foreground text-sm max-w-xl mx-auto">
-              Wybierz najlepszy format dla Siebie - już od 17.08.2026r rozpoczynamy wysyłkę.
+              Wybierz najlepszy format dla Siebie - już od 24.08.2026r rozpoczynamy wysyłkę.
             </p>
           </div>
           <div className="bg-card border border-border p-8 md:p-14 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 blur-3xl pointer-events-none" />
-            <div className="relative grid md:grid-cols-2 gap-12 items-start">
-              <div>
+            <div className="relative max-w-3xl mx-auto space-y-8">
+              <div className="text-center">
                 <img
                   src={media.cover}
                   alt="Kalendarz 2027"
-                  className="w-full max-w-xs mx-auto shadow-editorial"
+                  className="w-full max-w-lg mx-auto shadow-editorial"
                 />
                 <div className="mt-8 text-center">
                   <div className="font-display text-3xl">Kalendarz Art 2027</div>
                   <p className="mt-2 text-xs text-muted-foreground tracking-wide">
                     Druk premium · Numerowany · Podpis autora
                   </p>
-                  <div className="mt-6 grid grid-cols-2 gap-4">
-                    <div className="border border-border p-4">
-                      <div className="font-display text-2xl text-gold">A3</div>
-                      <div className="text-xs text-muted-foreground tracking-wide">
-                        29,7 × 42 cm
-                      </div>
-                      <div className="mt-2 font-display text-3xl">
-                        199{" "}
-                        <span className="text-xs tracking-luxury uppercase text-muted-foreground">
-                          PLN
-                        </span>
-                      </div>
-                    </div>
-                    <div className="border border-border p-4">
-                      <div className="font-display text-2xl text-gold">A2</div>
-                      <div className="text-xs text-muted-foreground tracking-wide">
-                        42 × 59,4 cm
-                      </div>
-                      <div className="mt-2 font-display text-3xl">
-                        299{" "}
-                        <span className="text-xs tracking-luxury uppercase text-muted-foreground">
-                          PLN
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  <p className="mt-4 text-sm font-bold text-foreground">
+                    Wybierz format i przejdź bezpośrednio do bezpiecznej płatności Stripe.
+                  </p>
                   <div className="mt-4 text-[10px] tracking-luxury uppercase text-muted-foreground">
-                    Nakład 500 egzemplarzy · Wysyłka w cenie
+                    Nakład po 500 egzemplarzy · Wysyłka w cenie na terenie Polski · Wysyłka od 24.08.2026r
+                  </div>
+                  <div className="mt-4 text-[12px] tracking-luxury uppercase text-muted-foreground">
+                    Chcesz zapłacić w EURO - wejdź na stronę Stripe i wybierz walutę w koszyku.
                   </div>
                 </div>
               </div>
@@ -365,7 +345,7 @@ function Landing() {
                 rel="noopener noreferrer"
                 className="text-gold hover:underline"
               >
-                Nexxsite.pl
+                NexXsite.pl
               </a>
             </div>
           </div>
