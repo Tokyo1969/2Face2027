@@ -51,11 +51,17 @@
   --gradient-fade: linear-gradient(180deg, transparent 0%, oklch(0.14 0.005 260) 100%);
   --gradient-gold: linear-gradient(135deg, oklch(0.82 0.1 82), oklch(0.62 0.06 82));
   --shadow-editorial: 0 40px 80px -20px oklch(0 0 0 / 0.6);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     background-color: var(--color-background);
@@ -63,6 +69,11 @@
     font-family: var(--font-body);
     font-weight: 300;
     letter-spacing: 0.01em;
+  }
+  img {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    user-select: none;
   }
   h1,
   h2,
@@ -85,4 +96,120 @@
 }
 @utility tracking-luxury {
   letter-spacing: 0.3em;
+}
+
+/* ---------- MOTION ---------- */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@keyframes cover-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+@keyframes line-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Hero entrance — staggered via --i set on each element */
+.hero-in {
+  animation: rise-in 500ms var(--ease-out) both;
+  animation-delay: calc(100ms + var(--i, 0) * 60ms);
+}
+.hero-cover {
+  animation: cover-in 700ms var(--ease-out) 150ms both;
+}
+.hero-line {
+  transform-origin: left;
+  animation: line-draw 600ms var(--ease-out) 300ms both;
+}
+
+/* Scroll reveal — hidden state only once JS has armed the observer */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 500ms var(--ease-out),
+    transform 500ms var(--ease-out);
+}
+.reveal-ready [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Mobile sticky bar — enters and exits through the bottom edge */
+.sticky-bar {
+  transition:
+    transform 300ms var(--ease-out),
+    opacity 300ms var(--ease-out),
+    visibility 0s linear 0s;
+}
+.sticky-bar:not([data-visible]) {
+  transform: translateY(100%);
+  visibility: hidden;
+  transition:
+    transform 300ms var(--ease-out),
+    opacity 300ms var(--ease-out),
+    visibility 0s linear 300ms;
+}
+
+.alert-in {
+  animation: alert-in 200ms var(--ease-out);
+}
+
+/* Month slideshow — crossfade between stacked slides */
+.slide {
+  opacity: 0;
+  transition: opacity 700ms var(--ease-in-out);
+}
+.slide[data-active] {
+  opacity: 1;
+}
+
+/* Press feedback on CTAs */
+@utility press {
+  transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out);
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-in,
+  .hero-cover {
+    animation-name: fade-in;
+  }
+  .hero-line {
+    animation: none;
+  }
+  .reveal-ready [data-reveal] {
+    transform: none;
+  }
+  .sticky-bar:not([data-visible]) {
+    transform: none;
+    opacity: 0;
+  }
+  .alert-in {
+    animation-name: fade-in;
+  }
 }
