@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Check, ShieldCheck, Truck, Sparkles, Box, CreditCard } from "lucide-react";
 
 const STRIPE_CHECKOUT_URL = {
-  A3: "https://buy.stripe.com/8x2cN5c6degQeJDaoj9AA01",
+  A3: "https://buy.stripe.com/5kQ5kD7PX8Ww0SN0NJ9AA02",
   A2: "https://buy.stripe.com/5kQ8wP9Y53Cc8lfcwr9AA00",
 } as const;
 
@@ -51,8 +51,8 @@ export function LeadForm() {
               <span className="text-[11px] tracking-luxury uppercase text-muted-foreground">
                 Format A3
               </span>
-              <span className="text-[10px] uppercase tracking-luxury text-gold/80 px-2 py-0.5 border border-gold/30">
-                1 z 500 szt.
+              <span className="text-[10px] uppercase tracking-luxury text-accent-foreground bg-gold px-2 py-0.5 font-bold">
+                Wyprzedaż
               </span>
             </div>
             <div className="mt-3 font-display text-4xl text-foreground">29,7 × 42 cm</div>
@@ -81,10 +81,14 @@ export function LeadForm() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-border/60">
-            <div className="flex items-baseline gap-2 mb-4">
-              <span className="font-display text-4xl text-gold">199,-</span>
+            <div className="text-[10px] tracking-luxury uppercase text-gold font-bold mb-1">
+              Wyprzedaż · Ostatnie egzemplarze
+            </div>
+            <div className="flex items-baseline gap-2 mb-4 flex-wrap">
+              <span className="text-lg text-muted-foreground line-through">199,-</span>
+              <span className="font-display text-4xl text-gold">99,-</span>
               <span className="text-xs tracking-luxury uppercase text-muted-foreground">
-                PLN / ~47 EUR
+                PLN / ~23 EUR
               </span>
             </div>
             <button
@@ -109,8 +113,8 @@ export function LeadForm() {
               <span className="text-[11px] tracking-luxury uppercase text-gold font-medium">
                 Format A2 (Galeryjny)
               </span>
-              <span className="text-[10px] uppercase tracking-luxury text-gold px-2 py-0.5 border border-gold bg-gold/10 font-medium">
-                Limitowany
+              <span className="text-[10px] uppercase tracking-luxury text-muted-foreground px-2 py-0.5 border border-border font-medium">
+                Brak
               </span>
             </div>
             <div className="mt-3 font-display text-4xl text-foreground">42 × 59,4 cm</div>
@@ -143,17 +147,18 @@ export function LeadForm() {
 
           <div className="mt-8 pt-6 border-t border-border/60">
             <div className="flex items-baseline gap-2 mb-4">
-              <span className="font-display text-4xl text-gold">299,-</span>
+              <span className="font-display text-4xl text-muted-foreground">BRAK</span>
               <span className="text-xs tracking-luxury uppercase text-muted-foreground">
-                PLN / ~70 EUR
+                Nakład wyczerpany
               </span>
             </div>
             <button
               type="button"
-              onClick={() => handleCheckout("A2")}
-              className="w-full inline-flex items-center justify-center gap-2 bg-gold text-accent-foreground hover:opacity-95 px-6 py-4 text-xs tracking-luxury uppercase press font-bold shadow-lg hover:shadow-gold/20 cursor-pointer"
+              disabled
+              aria-disabled="true"
+              className="w-full inline-flex items-center justify-center gap-2 border border-border text-muted-foreground px-6 py-4 text-xs tracking-luxury uppercase font-bold cursor-not-allowed opacity-70"
             >
-              Kupuję format A2 →
+              Format A2 — brak
             </button>
           </div>
         </div>

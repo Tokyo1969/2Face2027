@@ -25,6 +25,7 @@ const stagger = (i: number) => ({ "--i": i }) as CSSProperties;
 
 const media = {
   cover: "/media/cover.jpg",
+  promoA3: "/media/2027-99-2.jpg",
   mockup: "/media/mockup.jpg",
   interior: "/media/interior.png",
   oneshot: "/media/oneshot.jpg",
@@ -218,7 +219,7 @@ function Landing() {
                 href="#buy"
                 className="inline-flex items-center gap-3 bg-gold text-accent-foreground px-8 py-4 text-xs tracking-luxury uppercase hover:opacity-90 press font-bold shadow-lg hover:shadow-gold/20 cursor-pointer"
               >
-                Zamów egzemplarz (od 199 zł)
+                Zamów A3 — wyprzedaż 99 zł
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
@@ -511,7 +512,13 @@ function Landing() {
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-border/60 flex items-center justify-between">
-                <span className="font-display text-2xl text-gold">199 PLN</span>
+                <span className="flex items-baseline gap-2">
+                  <span className="text-sm text-muted-foreground line-through">199</span>
+                  <span className="font-display text-2xl text-gold">99 PLN</span>
+                  <span className="text-[10px] tracking-luxury uppercase text-gold font-bold">
+                    Wyprzedaż
+                  </span>
+                </span>
                 <a
                   href="#buy"
                   className="text-xs tracking-luxury uppercase text-gold hover:underline"
@@ -537,13 +544,10 @@ function Landing() {
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-border/60 flex items-center justify-between">
-                <span className="font-display text-2xl text-gold">299 PLN</span>
-                <a
-                  href="#buy"
-                  className="text-xs tracking-luxury uppercase text-gold hover:underline font-bold"
-                >
-                  Wybierz A2 →
-                </a>
+                <span className="font-display text-2xl text-muted-foreground">BRAK</span>
+                <span className="text-xs tracking-luxury uppercase text-muted-foreground">
+                  Nakład wyczerpany
+                </span>
               </div>
             </div>
           </div>
@@ -747,8 +751,8 @@ function Landing() {
             <div className="relative max-w-3xl mx-auto space-y-8">
               <div className="text-center">
                 <img
-                  src={media.cover}
-                  alt="Kalendarz 2027"
+                  src={media.promoA3}
+                  alt="Infatuation 2027 — ostatnie egzemplarze A3 w cenie promocyjnej 99 zł"
                   className="w-full max-w-md mx-auto shadow-editorial border border-border/60"
                 />
                 <div className="mt-8 text-center">
@@ -900,9 +904,7 @@ function Landing() {
       >
         <div>
           <div className="text-[10px] tracking-luxury uppercase text-gold">Infatuation 2027</div>
-          <div className="text-xs font-display text-foreground">
-            Format A3 (199 zł) / A2 (299 zł)
-          </div>
+          <div className="text-xs font-display text-foreground">A3 wyprzedaż 99 zł · A2 brak</div>
         </div>
         <a
           href="#buy"
